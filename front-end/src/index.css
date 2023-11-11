@@ -1,0 +1,12 @@
+*{
+  font-family: 'Lato', sans-serif;
+}
+
+.container-app{
+  margin-top: 2em;
+  min-height: 80vh;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-weight: bold;
+}
