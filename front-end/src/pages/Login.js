@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate} from "react-router-dom";
+import styles from './Login.module.css';
 
 const Login = () => {
 
@@ -28,15 +29,15 @@ const Login = () => {
     }
 
   return (
-    <div className="w-50 mx-auto my-5" >
+    <div className={styles.login} >
         <h2 className="text-center">Login</h2>
         {
             message && message.type === "login" && (
                 <p className="alert alert-danger">{message.msg}</p>
             )
         }
-        <form onSubmit={handleSubmit} className="w-100">
-            <div className="m-2">
+        <form onSubmit={handleSubmit}>
+            <div className="my-2">
                 <label className="form-label" htmlFor="username">Username:</label>
                 <input className="form-control"  type="text" name="username" id="username"
                     onChange={(e) => setUsername(e.target.value)} 
@@ -44,15 +45,15 @@ const Login = () => {
                     required
                 />
             </div>
-            <div className="m-2">
+            <div className="my-2">
                 <label className="form-label" htmlFor="password">Senha:</label>
-                <input className="form-control" type="text" name="password" id="password"
+                <input className="form-control" type="password" name="password" id="password"
                     onChange={(e) => setPassword(e.target.value) } 
                     placeholder="Digite sua senha"
                     required
                 />
             </div>
-            <div className="m-2">
+            <div className="my-4">
                 <button className="w-100 btn btn-success" type="submit">Login</button>
             </div>
             <div className="text-center">

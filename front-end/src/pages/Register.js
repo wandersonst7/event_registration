@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './Register.module.css';
 
 const Register = () => {
     const { register, message, setToken } = useAuth();
@@ -30,15 +31,15 @@ const Register = () => {
     }
 
   return (
-    <div className="w-50 mx-auto my-5" >
-        <h2 className="text-center">Cadastre-se</h2>
+    <div className={styles.register}>
+        <h2 className="text-center">Cadastro</h2>
         {
             message && message.type === "register" && (
                 <p className="alert alert-danger">{message.msg}</p>
             )
         }
         <form onSubmit={handleSubmit} className="w-100">
-            <div className="m-2">
+            <div className="my-2">
                 <label className="form-label" htmlFor="username">Username:</label>
                 <input className="form-control"  type="text" name="username" id="username"
                     onChange={(e) => setUsername(e.target.value)} 
@@ -46,7 +47,7 @@ const Register = () => {
                     required
                 />
             </div>
-            <div className="m-2">
+            <div className="my-2">
                 <label className="form-label" htmlFor="email">E-mail:</label>
                 <input className="form-control" type="email" name="email" id="email"
                     onChange={(e) => setEmail(e.target.value) } 
@@ -54,7 +55,7 @@ const Register = () => {
                     required
                 />
             </div>
-            <div className="m-2">
+            <div className="mt-2">
                 <label className="form-label" htmlFor="password">Senha:</label>
                 <input className="form-control" type="password" name="password" id="password"
                     onChange={(e) => setPassword(e.target.value) } 
@@ -62,8 +63,12 @@ const Register = () => {
                     required
                 />
             </div>
-            <div className="m-2">
+            <div className="my-4">
                 <button className="w-100 btn btn-success" type="submit">Cadastrar-se</button>
+            </div>
+            <div className="text-center">
+                <p>Já possui conta?</p>
+                <Link to="/login"><strong> Fazer Login </strong></Link>
             </div>
         </form>
     </div>

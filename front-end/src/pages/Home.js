@@ -61,8 +61,14 @@ const Home = () => {
         </div>
       </section>
 
-        <h2 className="mb-5 fw-light">Todos os eventos</h2>
-        { loading && (<p>Carregando...</p>)}
+        <h2 className="mb-5 fw-light text-center">Todos os eventos</h2>
+        { loading && (
+        <div className="d-flex justify-content-center">
+          <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+        )}
         { !loading &&
         <div className="row row-cols-sm-2 row-cols-md-3 g-3">
           {
