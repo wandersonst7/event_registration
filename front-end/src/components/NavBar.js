@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const NavBar = () => {
+  
+  const { token, logout } = useAuth();
+  const redirect  = useNavigate();
+
+  const handleSubmit = () => {
+    logout();
+    redirect("/")
+  }
+
   return (
   <nav data-bs-theme="dark">
     <div className="collapse text-bg-dark" id="navbarHeader">
@@ -9,6 +19,11 @@ const NavBar = () => {
           <div className="col-sm-8 col-md-7 py-4">
             <h4>Sobre</h4>
             <p className="text-body-secondary" style={{letterSpacing: 1.5}}>EventRegistration é uma plataforma definitiva para simplificar e aprimorar a gestão de eventos! Oferece uma experiência intuitiva e eficiente para criar, visualizar, atualizar e excluir eventos.</p>
+            {
+              token && (
+                <button onClick={ () => handleSubmit() }className="btn btn-outline-warning">Logout</button>
+              )
+            }
           </div>
         </div>
       </div>

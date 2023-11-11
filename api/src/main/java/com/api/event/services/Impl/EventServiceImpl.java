@@ -1,7 +1,8 @@
-package com.api.event.services;
+package com.api.event.services.Impl;
 
 import com.api.event.models.EventModel;
 import com.api.event.repositories.EventRepository;
+import com.api.event.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EventServiceImpl implements EventService{
+public class EventServiceImpl implements EventService {
 
     @Autowired
     EventRepository eventRepository;
