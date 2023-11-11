@@ -8,6 +8,7 @@ export const AuthContextProvider = ({children}) => {
 
     const [token, setToken] = useState(null);
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false)
     
     const { url } = api();
 
@@ -20,6 +21,7 @@ export const AuthContextProvider = ({children}) => {
     }, [])
 
     const login = async (login) => {
+        setLoading(true)
         const response = await fetch(`${url}/users/login`, {
             method: "POST",
             headers: {
@@ -37,12 +39,15 @@ export const AuthContextProvider = ({children}) => {
             return responseJson;
         }).catch((error) => {
             console.log(error)
+            return;
         })
 
+        setLoading(false)
         return response;
     }
 
     const register = async (data) => {
+        setLoading(true)
         const response = await fetch(`${url}/users/register`, {
             method: "POST",
             headers: {
@@ -59,8 +64,10 @@ export const AuthContextProvider = ({children}) => {
             return responseJson;
         }).catch((error) => {
             console.log(error)
+            return;
         })
 
+        setLoading(false)
         return response;
     }
 
@@ -70,7 +77,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
   return (
-    <AuthContext.Provider value={{ login, register, logout, token, setToken, message, setMessage }}>
+    <AuthContext.Provider value={{ login, register, logout, token, setToken, message, setMessage, loading }}>
         {children}
     </AuthContext.Provider>
   )

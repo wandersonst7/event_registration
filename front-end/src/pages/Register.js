@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 
 const Register = () => {
-    const { register, message, setToken } = useAuth();
+    const { register, message, setToken, loading } = useAuth();
 
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
@@ -64,7 +64,13 @@ const Register = () => {
                 />
             </div>
             <div className="my-4">
-                <button className="w-100 btn btn-success" type="submit">Cadastrar-se</button>
+                {
+                    loading ? (
+                        <button className="w-100 btn btn-secondary" type="button">Aguarde...</button>
+                    ) : (
+                        <button className="w-100 btn btn-success" type="submit">Cadastrar-se</button>
+                    )
+                }
             </div>
             <div className="text-center">
                 <p>Já possui conta?</p>

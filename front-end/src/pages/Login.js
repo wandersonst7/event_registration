@@ -5,7 +5,7 @@ import styles from './Login.module.css';
 
 const Login = () => {
 
-    const { login, message, setToken } = useAuth();
+    const { login, message, setToken, loading } = useAuth();
     const redirect = useNavigate();
 
     const [username, setUsername] = useState();
@@ -54,7 +54,13 @@ const Login = () => {
                 />
             </div>
             <div className="my-4">
-                <button className="w-100 btn btn-success" type="submit">Login</button>
+                {
+                    loading ? (
+                        <button className="w-100 btn btn-secondary" type="button">Aguarde...</button>
+                    ) : (
+                        <button className="w-100 btn btn-success" type="submit">Login</button>
+                    )
+                }
             </div>
             <div className="text-center">
                 <p>Ainda não possui conta?</p>
