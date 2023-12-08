@@ -25,6 +25,7 @@
   POST /auth/register
 ```
 
+
 #### Autentica o usuário
 
 ```http
