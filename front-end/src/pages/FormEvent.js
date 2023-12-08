@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import useEvent from '../hooks/useEvent';
 import styles from './FormEvent.module.css';
+import { useAuth } from '../contexts/AuthContext';
 
 const FormEvent = () => {
 
   const { postEvent, putEvent, getEvent, loading } = useEvent();
+  const { token } = useAuth();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -18,7 +20,7 @@ const FormEvent = () => {
     (async() => {
 
       if(id){
-        const data = await getEvent(id);
+        const data = await getEvent(id, token);
 
         if(data){
           setName(data.name)
@@ -29,7 +31,7 @@ const FormEvent = () => {
 
     })()
 
-  }, [id, getEvent])
+  }, [id, getEvent, token])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,9 +43,9 @@ const FormEvent = () => {
     }
 
     if(id){
-      await putEvent(event, id)
+      await putEvent(event, id, token)
     }else{
-      await postEvent(event)
+      await postEvent(event, token)
     }
     
   }

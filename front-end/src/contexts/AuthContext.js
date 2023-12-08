@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { createContext, useContext } from "react";
 import api from "../services/api"
 
@@ -12,17 +12,25 @@ export const AuthContextProvider = ({children}) => {
     
     const { url } = api();
 
-    useEffect(() => {
-        const tokenStoraged = localStorage.getItem('token');
+    const tokenVerify = useCallback(async (token) => {
+        
+        const response = await fetch(`${url}/token/verify`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(token)
+        })
 
-        if(tokenStoraged){
-            setToken(tokenStoraged)
-        }
-    }, [])
+        const status = await response.status;
+        return status;
+
+    }, [url])
 
     const login = async (login) => {
         setLoading(true)
-        const response = await fetch(`${url}/users/login`, {
+        setMessage("")
+        const response = await fetch(`${url}/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -48,7 +56,8 @@ export const AuthContextProvider = ({children}) => {
 
     const register = async (data) => {
         setLoading(true)
-        const response = await fetch(`${url}/users/register`, {
+        setMessage("")
+        const response = await fetch(`${url}/auth/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -75,6 +84,33 @@ export const AuthContextProvider = ({children}) => {
         localStorage.removeItem('token');
         setToken(null)
     }
+
+    useEffect(() => {
+        const tokenStoraged = JSON.parse(localStorage.getItem('token'));
+
+        if(tokenStoraged){
+
+           (async() => {
+                setLoading(true)
+
+                try{
+                    const response = await tokenVerify(tokenStoraged)
+
+                    if(response === 200){
+                        setToken(tokenStoraged.token)
+                    }else{
+                        throw Error("Token inválido")
+                    }
+
+                }catch(error){
+                    setMessage({msg: "Token expirado ou inválido", type: "token"})
+                    logout();
+                }
+                setLoading(false)
+            })()
+
+        }
+    }, [tokenVerify])
 
   return (
     <AuthContext.Provider value={{ login, register, logout, token, setToken, message, setMessage, loading }}>

@@ -31,7 +31,7 @@ public class EventController {
     public ResponseEntity<Object> getEvent(@PathVariable long id){
         try{
             Optional<EventModel> event  = eventService.getEvent(id);
-            System.out.println(event);
+
             if(event.isPresent()){
                 return ResponseEntity.status(HttpStatus.OK).body(event);
             }

@@ -10,7 +10,7 @@ const Home = () => {
   const [events, setEvents] = useState([]);
   const [deleted, setDeleted] = useState(null);
 
-  const { token } = useAuth();
+  const { token, message } = useAuth();  
   
   useEffect( () => {
 
@@ -29,7 +29,7 @@ const Home = () => {
   }, [deleted, getAllEvents])
 
   const handleDelete = async (id) => {
-    await deleteEvent(id)
+    await deleteEvent(id, token)
     setDeleted(true)
   }
 
@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <div className="container-app container">
-
+      { message && <p className="alert alert-danger">{message.msg}</p> }
       <section className="py-5 text-center container">
         <div className="row py-lg-5">
           <div className="col-lg-6 col-md-8 mx-auto">

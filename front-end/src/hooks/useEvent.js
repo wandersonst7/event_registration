@@ -10,12 +10,13 @@ const useEvent = () => {
   
   const redirect = useNavigate();
 
-  const getEvent = useCallback(async (id) => {
+  const getEvent = useCallback(async (id, authorization) => {
 
     setLoading(true)
     return await fetch(`${url}/events/${id}`, {
       method: "GET",
       headers: {
+        "Authorization": `Bearer ${authorization}`,
         "Content-Type": "application/json"
       }
     }).then((response) => {
@@ -55,11 +56,12 @@ const useEvent = () => {
 
   }, [url])
 
-  const postEvent = async (event) => {
+  const postEvent = async (event, authorization) => {
     setLoading(true)
     return await fetch(`${url}/events`, {
       method: "POST",
       headers: {
+        "Authorization": `Bearer ${authorization}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(event)
@@ -76,11 +78,12 @@ const useEvent = () => {
   
   }
 
-  const putEvent = async (event, id) => {
+  const putEvent = async (event, id, authorization) => {
     setLoading(true)
     return await fetch(`${url}/events/${id}`, {
       method: "PUT",
       headers: {
+        "Authorization": `Bearer ${authorization}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(event)
@@ -97,11 +100,12 @@ const useEvent = () => {
 
   }
 
-  const deleteEvent = async (id) => {
+  const deleteEvent = async (id, authorization) => {
     setLoading(true)
     return await fetch(`${url}/events/${id}`, {
       method: "DELETE",
       headers: {
+        "Authorization": `Bearer ${authorization}`,
         "Content-Type": "application/json"
       },
     }).then((response) => {
