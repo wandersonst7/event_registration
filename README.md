@@ -6,29 +6,36 @@
 | Tecnologia | Versão | 
 |---|---|
 | Java | 17 | 
+| Spring-Boot | 3 | 
+| Bootstrap | 5 |
+| ReactJS | -- |
 
 ## Resumo das Funcionalidaedes
-- Login
-- Cadastro de Usuário
+- Autenticação de Usuários
+- Validação de Token
 - CRUD de Eventos
 
 ## Banco de Dados
 - PostgreSQL
 ## Documentação da API
 
-#### Cadastra usuário
+#### Registra e Autentica o usuário
 
 ```http
-  POST /users/register
+  POST /auth/register
 ```
 
-
-#### Valida usuário
+#### Autentica o usuário
 
 ```http
-  POST /users/login
+  POST /auth/login
 ```
 
+#### Valida token
+
+```http
+  POST /token/verify
+```
 
 #### Retorna todos os eventos
 
@@ -53,7 +60,7 @@
 ```
 
 
-#### Atualiza um evento existente
+#### Atualiza um evento
 
 ```http
   PUT /events/{id}
