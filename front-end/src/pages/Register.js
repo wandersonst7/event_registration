@@ -24,7 +24,7 @@ const Register = () => {
         const response = await register(data);
 
         if(response){
-            setToken(JSON.stringify(response.token))
+            setToken(response.token)
             localStorage.setItem('token', JSON.stringify(response))
             redirect("/")
         }

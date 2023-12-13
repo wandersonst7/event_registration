@@ -32,7 +32,7 @@ const useEvent = () => {
       setLoading(false)
     })
 
-  }, [url, ])
+  }, [url])
 
   const getAllEvents = useCallback(async () => {
     setLoading(true)
